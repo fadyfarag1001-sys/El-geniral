@@ -4,7 +4,7 @@
   const { t } = I;
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-  const page = document.body.dataset.page;
+  const page = document.body.dataset.page || 'home'; // preview hosts may replace <body>; home has no attribute then
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const ph = (val, key) => (val == null || val === '' ? `<span class="ph">${esc(t(key))}</span>` : esc(val));
   const phText = (val, key) => (val == null || val === '' ? t(key) : String(val));
@@ -35,7 +35,7 @@
   /* ---------- chrome ---------- */
   const navItems = [
     ['nav.home', 'index.html#top'], ['nav.collection', 'index.html#collection'], ['nav.elite', 'index.html#strength'],
-    ['nav.men', 'index.html?filter=men#collection'], ['nav.women', 'index.html?filter=women#collection'], ['nav.about', 'index.html#house']
+    ['nav.men', 'index.html#men'], ['nav.women', 'index.html#women'], ['nav.about', 'index.html#house']
   ];
   const navLinks = navItems.map(([k, href]) => `<li><a href="${href}" data-i18n="${k}"></a></li>`).join('');
 
@@ -101,8 +101,8 @@
       </div>
       <nav class="footer-cols" data-i18n-attr="aria-label:footer.links">
         <div><h2 data-i18n="footer.shop"></h2><ul>
-          <li><a href="index.html?filter=men#collection" data-i18n="nav.men"></a></li>
-          <li><a href="index.html?filter=women#collection" data-i18n="nav.women"></a></li>
+          <li><a href="index.html#men" data-i18n="nav.men"></a></li>
+          <li><a href="index.html#women" data-i18n="nav.women"></a></li>
           <li><a href="index.html#strength" data-i18n="nav.elite"></a></li></ul></div>
         <div><h2 data-i18n="footer.help"></h2><ul>
           <li><a href="help.html#shipping" data-i18n="footer.shipping"></a></li>
@@ -181,7 +181,7 @@
     if (!n) { list.innerHTML = `<li class="search-hint">${esc(t('search.hint'))}</li>`; return; }
     const hits = D.products.filter(p => [p.name, p.no, p.nameAr, p.family.ar, p.family.en, `no.${p.no}`]
       .filter(Boolean).join(' ').toLowerCase().includes(n));
-    list.innerHTML = hits.length ? hits.map(p => `<li><a href="product.html?id=${p.id}">${S.bottleSVG(p, { size: 'xs', label: false })}
+    list.innerHTML = hits.length ? hits.map(p => `<li><a href="product.html#${p.id}">${S.bottleSVG(p, { size: 'xs', label: false })}
       <span><span class="latin">${esc(p.name)} No.${p.no}</span><small>${esc(p.family[I.lang])}</small></span></a></li>`).join('')
       : `<li class="search-hint">${esc(t('search.empty'))}</li>`;
   }
@@ -229,7 +229,7 @@
     <span class="card__no">No.${p.no}</span>
   </div>
   <div class="card__body">
-    <h3 class="card__name"><a href="product.html?id=${p.id}" aria-label="${esc(t('card.view', { name: p.name }))}">${esc(p.name)}</a></h3>
+    <h3 class="card__name"><a href="product.html#${p.id}" aria-label="${esc(t('card.view', { name: p.name }))}">${esc(p.name)}</a></h3>
     ${inspiredLine(p)}
     <div class="card__family">${esc(p.family[I.lang])} · ${esc(t('card.ml'))}</div>
     <div class="card__foot">
@@ -243,8 +243,13 @@
   /* ================= HOME ================= */
   function initHome() {
     const grid = $('#product-grid'), status = $('#filter-status');
-    const params = new URLSearchParams(location.search);
-    let filter = ['men', 'women', 'unisex'].includes(params.get('filter')) ? params.get('filter') : 'all';
+    // Filters deep-link with a plain hash (#men, #women, #unisex) — works on any host, incl. the preview frame.
+    const FILTERS = ['men', 'women', 'unisex'];
+    const fromHash = () => { const h = location.hash.slice(1); return FILTERS.includes(h) ? h : null; };
+    let filter = fromHash() || (FILTERS.includes(new URLSearchParams(location.search).get('filter')) ? new URLSearchParams(location.search).get('filter') : 'all');
+    const goToCollection = () => $('#collection').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    window.addEventListener('hashchange', () => { const f = fromHash(); if (f) { filter = f; render(true); goToCollection(); } });
+    if (fromHash()) requestAnimationFrame(goToCollection);
 
     function render(animate) {
       const list = filter === 'all' ? D.products : D.products.filter(p => p.audience === filter);
@@ -256,9 +261,7 @@
     }
     $$('.chip').forEach(c => c.addEventListener('click', () => {
       filter = c.dataset.filter;
-      const url = new URL(location.href);
-      if (filter === 'all') url.searchParams.delete('filter'); else url.searchParams.set('filter', filter);
-      history.replaceState(null, '', url);
+      try { history.replaceState(null, '', filter === 'all' ? location.pathname + location.search : '#' + filter); } catch (e) { /* sandboxed frame */ }
       render(true);
     }));
     grid.addEventListener('click', e => {
@@ -286,8 +289,10 @@
 
   /* ================= PRODUCT ================= */
   function initProduct() {
-    const id = new URLSearchParams(location.search).get('id') || D.products[0].id;
+    // Product id from the hash (#sniper); ?id= still accepted for old links.
+    const id = location.hash.slice(1) || new URLSearchParams(location.search).get('id') || D.products[0].id;
     const p = S.byId(id);
+    window.addEventListener('hashchange', () => location.reload());
     const root = $('#pdp');
     if (!p) {
       root.innerHTML = `<div class="empty-cart" style="margin-block:48px"><h1 data-i18n="pd.notfound"></h1><a class="btn btn--gold" href="index.html#collection" data-i18n="pd.back"></a></div>`;
@@ -381,7 +386,7 @@
 <section class="section container">
   <div class="section-head reveal"><h2>${esc(t('pd.more'))}</h2></div>
   <div class="mini-grid">
-    ${D.products.filter(x => x.id !== p.id).map(x => `<a class="mini reveal" href="product.html?id=${x.id}">${S.bottleSVG(x, { size: 'xs' })}
+    ${D.products.filter(x => x.id !== p.id).map(x => `<a class="mini reveal" href="product.html#${x.id}">${S.bottleSVG(x, { size: 'xs' })}
       <div><span class="latin">${esc(x.name)}</span><small>${esc(t('card.inspired', { name: '' }).trim())} ${ph(x.inspiredBy, 'ph.original')}</small><b>${priceHTML(S.fromPrice(x))}</b></div></a>`).join('')}
   </div>
 </section>
@@ -453,9 +458,9 @@
     function lineHTML(i) {
       const p = S.byId(i.id), key = S.cart.keyOf(i), u = S.unitPrice(i);
       return `<li class="line" data-key="${esc(key)}">
-  <a class="line__media" href="product.html?id=${p.id}" tabindex="-1" aria-hidden="true">${S.bottleSVG(p, { size: 'xs' })}</a>
+  <a class="line__media" href="product.html#${p.id}" tabindex="-1" aria-hidden="true">${S.bottleSVG(p, { size: 'xs' })}</a>
   <div class="line__info">
-    <a class="latin" href="product.html?id=${p.id}">${esc(p.name)} <span style="color:var(--gold)">No.${p.no}</span></a>
+    <a class="latin" href="product.html#${p.id}">${esc(p.name)} <span style="color:var(--gold)">No.${p.no}</span></a>
     <small>${esc(t('card.inspired', { name: '' }).trim())} ${ph(p.inspiredBy, 'ph.original')}</small>
     <div class="tags"><span class="tag tag--gold">${esc(t(i.strength === 'elite' ? 'elite.name' : 'std.name'))}</span><span class="tag">${esc(t('size.' + i.size))}</span></div>
   </div>

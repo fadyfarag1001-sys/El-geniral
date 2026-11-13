@@ -49,6 +49,9 @@ for (const [label, device] of [['iPhone 13', devices['iPhone 13']], ['Desktop', 
   await page.click('.chip[data-filter="women"]');
   check(await page.locator('.empty-state').isVisible(), 'women filter shows the Madame General “coming soon” state');
   await page.click('.chip[data-filter="all"]');
+  await page.goto(`${base}/index.html#men`);
+  await page.waitForSelector('#product-grid .card', { state: 'attached' });
+  check(await page.locator('#product-grid .card').count() === 1 && await page.locator('.chip[data-filter="men"][aria-pressed="true"]').count() === 1, 'nav link #men opens the collection filtered');
 
   // menu (mobile) / nav
   if (label === 'iPhone 13') {
@@ -83,9 +86,9 @@ for (const [label, device] of [['iPhone 13', devices['iPhone 13']], ['Desktop', 
   check(await page.evaluate(() => document.documentElement.dir === 'rtl'), 'back to Arabic RTL');
 
   // product page
-  await page.goto(`${base}/product.html?id=sniper`);
+  await page.goto(`${base}/product.html#sniper`);
   await page.waitForSelector('.pdp h1');
-  check((await page.locator('.pdp h1').innerText()).trim() === 'SNIPER', 'product page reads ?id=');
+  check((await page.locator('.pdp h1').innerText()).trim() === 'SNIPER', 'product page reads #id');
   await page.check('#st-elite');
   check(await page.locator('#st-elite').isChecked(), 'Elite strength selectable');
   check((await page.locator('#opt-note').innerText()).includes('أجمد'), 'strength note updates');
@@ -99,6 +102,7 @@ for (const [label, device] of [['iPhone 13', devices['iPhone 13']], ['Desktop', 
   check(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'no horizontal scroll on product');
   if (shots) { await page.waitForTimeout(600); await page.screenshot({ path: `${shots}/${label}-product.png` }); }
   await page.goto(`${base}/product.html?id=nope`);
+  await page.waitForSelector('text=العطر ده مش موجود');
   check(await page.locator('text=العطر ده مش موجود').count() === 1, 'unknown product shows a friendly not-found');
 
   // cart

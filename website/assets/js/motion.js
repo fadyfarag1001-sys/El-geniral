@@ -125,7 +125,7 @@
   }
 
   function boot() {
-    const page = document.body.dataset.page;
+    const page = document.body.dataset.page || 'home';
     if (page === 'home') home();
     else if (page !== 'product') revealIn(document); // product page reveals itself after each render
     // Fonts change line heights → recompute trigger positions once they're in.

@@ -5,7 +5,7 @@
 (function () {
   const dict = {
     ar: {
-      'meta.home': 'الجنرال للعطور — عطور متعتّقة بتوقيع الجنرال',
+      'meta.home': 'الجنرال للعطور',
       'meta.product': 'الجنرال للعطور — {name}',
       'meta.cart': 'الجنرال للعطور — السلة',
       'meta.help': 'الجنرال للعطور — مساعدة',
@@ -103,7 +103,7 @@
       'help.contact.t': 'تواصل معانا', 'help.contact.p': 'هنكون موجودين على واتساب وإنستجرام وتيك توك.'
     },
     en: {
-      'meta.home': 'Al General Parfums — Aged fragrances, signed by the General',
+      'meta.home': 'Al General Parfums',
       'meta.product': 'Al General Parfums — {name}',
       'meta.cart': 'Al General Parfums — Bag',
       'meta.help': 'Al General Parfums — Help',

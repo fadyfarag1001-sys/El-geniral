@@ -41,7 +41,7 @@ html[lang="en"] { --font-display: "Cormorant Garamond", "Cinzel", Georgia, serif
 @media (min-width: 768px) { :root { --gutter: 32px; --section: 96px; --header-h: 76px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
+html { color-scheme: dark; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   margin: 0; background: var(--surface); color: var(--ink);
@@ -99,10 +99,12 @@ p { margin: 0; }
 /* ---------- top bar + header ---------- */
 .topbar { background: var(--gold); color: var(--on-gold); text-align: center; font-size: 13px; font-weight: 600; padding: 8px var(--gutter); line-height: 1.5; }
 .site-header {
-  position: sticky; top: 0; z-index: 50;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
   background: rgba(22,26,18,.82); backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px);
   border-bottom: 1px solid transparent; transition: border-color .3s var(--ease), background-color .3s var(--ease);
 }
+/* paints the notch band above the sticky header on iPhone */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 51; background: var(--surface-night); }
 .site-header.is-scrolled { border-bottom-color: var(--line); background: rgba(15,18,12,.92); }
 .site-header__inner { height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
