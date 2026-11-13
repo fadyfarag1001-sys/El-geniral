@@ -1,0 +1,19 @@
+{
+  "name": "al-general-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Al General Parfums — static storefront (Arabic RTL + English)",
+  "scripts": {
+    "vendor": "node scripts/copy-vendor.mjs",
+    "dev": "python3 -m http.server 8080 --bind 0.0.0.0 --directory website",
+    "check": "html-validate \"website/*.html\" && node --check website/assets/js/data.js && node --check website/assets/js/i18n.js && node --check website/assets/js/store.js && node --check website/assets/js/motion.js && node --check website/assets/js/app.js",
+    "test": "node scripts/smoke-test.mjs",
+    "prerender": "node scripts/prerender-ar.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.15.1"
+  },
+  "devDependencies": {
+    "html-validate": "^9.7.1"
+  }
+}

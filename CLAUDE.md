@@ -20,7 +20,11 @@ An Egyptian perfume brand aiming to feel like a **global, premium niche brand**.
 
 ## Folders
 - `design-system/` — `tokens.json` (source of truth), `tokens.css` (CSS variables), `README.md` (brand book), `logo/` (SVGs; the SVG text uses the Cinzel font — outline it before print).
-- `website/` — static HTML prototype: `index.html`, `product.html`, `cart.html`. Built in the earlier "military" direction: still uses the old chevron logo and stencil/military copy. **Next job: re-skin to the AG logo and premium tone**, then turn into a real store.
+- `website/` — static store (no build step): `index.html`, `product.html?id=…`, `cart.html`, `help.html`. Re-skinned (Nov 2026) to the AG laurel logo and a premium tone; see `website/README.md`.
+  - **All product data, prices and settings live in `website/assets/js/data.js`.** `null` = unknown → shown as a `[placeholder]`. Never invent values.
+  - Copy (Arabic + English) lives in `website/assets/js/i18n.js`. After editing Arabic copy run `npm run prerender`.
+  - Motion: GSAP 3 + ScrollTrigger (vendored in `website/assets/vendor/`, from npm via `npm run vendor`), all in `assets/js/motion.js`, respects reduced motion.
+  - Checks: `npm run check` (HTML validation + JS syntax) and `npm test` (Playwright smoke test, iPhone + desktop).
 - `packaging/` — box design PDF (3 pages, 1:1, estimated sizes), mockups, bottle/cap shortlists from supplier catalogues (Elbana, Mataweh Group).
 - `docs/decisions.md` — suppliers, costs, open questions.
 

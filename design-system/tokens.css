@@ -26,3 +26,15 @@
   --radius-lg: 6px;
   --radius-bottle: 16px;
 }
+
+/* Added Nov 2026 for the premium website re-skin (light luxury surfaces) */
+:root {
+  --cream: #F6F1E6;        /* light section background */
+  --beige: #E4D8BE;        /* soft accents, swatches */
+  --cream-line: #D8CCB0;   /* hairlines on cream */
+  --cream-ink: #221F14;    /* text on cream (15:1) */
+  --cream-muted: #564E39;  /* body on cream (≥ 6:1) */
+  --cream-accent: #7A5F22; /* "gold" text on cream — passes 4.5:1; real #C9A24A does not */
+  --gold-light: #E2C67E;   /* hover state of gold buttons */
+  --font-latin: "Cinzel", "Cormorant Garamond", Georgia, serif; /* replaces Saira Stencil (military) */
+}

@@ -4,7 +4,7 @@
 
 - `CLAUDE.md` — كل القرارات والسياق لـ Claude Code.
 - `design-system/` — الألوان والخطوط واللوجو.
-- `website/` — افتح `index.html` في المتصفح.
+- `website/` — الموقع. شغّله بـ `npm run dev` وافتحه من الموبايل على نفس الواي فاي (التفاصيل في `website/README.md`).
 - `packaging/` — ملف العلبة والصور.
 - `docs/decisions.md` — الموردين والأسعار والأسئلة المفتوحة.
 
