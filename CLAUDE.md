@@ -20,7 +20,7 @@ An Egyptian perfume brand aiming to feel like a **global, premium niche brand**.
 
 ## Folders
 - `design-system/` — `tokens.json` (source of truth), `tokens.css` (CSS variables), `README.md` (brand book), `logo/` (SVGs; the SVG text uses the Cinzel font — outline it before print).
-- `website/` — static store (no build step): `index.html`, `product.html?id=…`, `cart.html`, `help.html`. Re-skinned (Nov 2026) to the AG laurel logo and a premium tone; see `website/README.md`.
+- `website/` — static store (no build step): `index.html`, `product.html?id=…`, `cart.html`, `help.html`. **Owner decision (Nov 2026): the site uses the ORIGINAL prototype design** — chevron insignia, Saira Stencil codenames, military-luxury copy (OPERATION 01, CHOOSE YOUR POWER, الترسانة, I./II./III.). Keep this look unless the owner says otherwise; see `website/README.md`.
   - **All product data, prices and settings live in `website/assets/js/data.js`.** `null` = unknown → shown as a `[placeholder]`. Never invent values.
   - Copy (Arabic + English) lives in `website/assets/js/i18n.js`. After editing Arabic copy run `npm run prerender`.
   - Motion: GSAP 3 + ScrollTrigger (vendored in `website/assets/vendor/`, from npm via `npm run vendor`), all in `assets/js/motion.js`, respects reduced motion.

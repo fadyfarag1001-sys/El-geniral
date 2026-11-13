@@ -34,18 +34,21 @@ function watch(page, label) {
 }
 
 for (const [label, device] of [['iPhone 13', devices['iPhone 13']], ['Desktop', { viewport: { width: 1440, height: 900 } }]]) {
+  const W = device.viewport.width; // the page must never stretch past the real screen width
   console.log(`\n— ${label}`);
   const ctx = await ctxFor(device);
   const page = await ctx.newPage(); watch(page, label);
   await page.goto(`${base}/index.html`, { waitUntil: 'load' });
   await page.waitForSelector('#product-grid .card', { state: 'attached' });
   check(await page.locator('#product-grid .card').count() === 4, 'home shows the 4 products');
-  check(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'no horizontal scroll on home');
+  check(await page.evaluate(w => window.innerWidth <= w && document.documentElement.scrollWidth <= w, W), 'no horizontal scroll on home (page = screen width)');
   check(await page.evaluate(() => typeof window.gsap === 'object' && typeof window.ScrollTrigger === 'function'), 'GSAP + ScrollTrigger loaded');
   check((await page.locator('.card__price').first().textContent()).includes('[السعر]'), 'prices stay as [السعر] placeholders (none invented)');
   if (shots) { await page.waitForTimeout(2200); await page.screenshot({ path: `${shots}/${label}-home.png` }); }
 
-  // filters
+  // filters (let the page's smooth scroll settle before clicking)
+  await page.evaluate(() => document.querySelector('#collection').scrollIntoView({ behavior: 'instant' }));
+  await page.waitForTimeout(900);
   await page.click('.chip[data-filter="women"]');
   check(await page.locator('.empty-state').isVisible(), 'women filter shows the Madame General “coming soon” state');
   await page.click('.chip[data-filter="all"]');
@@ -71,7 +74,7 @@ for (const [label, device] of [['iPhone 13', devices['iPhone 13']], ['Desktop', 
   // add to cart from grid
   await page.click('[data-add="commander"]');
   await page.waitForTimeout(200);
-  check((await page.locator('[data-cart-count]').first().innerText()).trim() === '١', 'cart badge updates to 1 (Arabic numerals)');
+  check((await page.locator('[data-cart-count]').first().innerText()).trim() === '(١)', 'cart badge updates to (1) (Arabic numerals)');
   check(await page.locator('.toast').count() >= 1, 'toast confirms add to cart');
 
   // language switch
@@ -81,7 +84,7 @@ for (const [label, device] of [['iPhone 13', devices['iPhone 13']], ['Desktop', 
   };
   await switchLang();
   check(await page.evaluate(() => document.documentElement.dir === 'ltr' && document.documentElement.lang === 'en'), 'EN switch flips to LTR English');
-  check((await page.locator('#col-title').textContent()).includes('Collection'), 'section titles translate');
+  check((await page.locator('#col-title').textContent()).includes('Arsenal'), 'section titles translate');
   await switchLang();
   check(await page.evaluate(() => document.documentElement.dir === 'rtl'), 'back to Arabic RTL');
 
@@ -99,7 +102,7 @@ for (const [label, device] of [['iPhone 13', devices['iPhone 13']], ['Desktop', 
   check(await page.locator('.pdp__panel[data-panel="box"].is-active').count() === 1, 'gallery thumbnails switch view');
   await page.click('#add-btn');
   check(await page.evaluate(() => JSON.parse(localStorage.getItem('ag-cart-v1')).some(i => i.id === 'sniper' && i.strength === 'elite' && i.size === '50' && i.qty === 2)), 'product added with chosen strength/size/qty');
-  check(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'no horizontal scroll on product');
+  check(await page.evaluate(w => window.innerWidth <= w && document.documentElement.scrollWidth <= w, W), 'no horizontal scroll on product (page = screen width)');
   if (shots) { await page.waitForTimeout(600); await page.screenshot({ path: `${shots}/${label}-product.png` }); }
   await page.goto(`${base}/product.html?id=nope`);
   await page.waitForSelector('text=العطر ده مش موجود');

@@ -10,9 +10,10 @@
   const phText = (val, key) => (val == null || val === '' ? t(key) : String(val));
 
   /* ---------- logo + icon sprite ---------- */
-  const LAUREL = `<polyline points="162.7,224.4 168.6,222.0 174.4,219.2 179.9,216.0 185.3,212.5 190.4,208.6 195.2,204.4 199.7,199.9 204.0,195.1 207.8,190.0 211.4,184.6 214.5,179.0 217.3,173.3 219.7,167.3 221.7,161.2 223.3,155.0 224.4,148.7 225.2,142.4 225.5,136.0 225.3,129.6 224.8,123.2 223.8,116.8 222.4,110.6 220.6,104.4 218.3,98.4 215.7,92.6 212.7,86.9 209.3,81.5 205.5,76.3 201.5,71.4 197.1,66.7 192.3,62.4 187.4,58.4 182.1,54.7 176.6,51.4 170.9,48.4 165.1,45.9 159.0,43.7 152.8,42.0 146.6,40.7" stroke="currentColor" stroke-width="2" fill="none"/><ellipse cx="189.6" cy="217.3" rx="11.7" ry="4.68" transform="rotate(4.0 189.6 217.3)" fill="currentColor"/><ellipse cx="183.4" cy="206.9" rx="11.7" ry="4.68" transform="rotate(-66.0 183.4 206.9)" fill="currentColor"/><ellipse cx="212.6" cy="194.4" rx="11.7" ry="4.68" transform="rotate(-14.3 212.6 194.4)" fill="currentColor"/><ellipse cx="203.4" cy="186.5" rx="11.7" ry="4.68" transform="rotate(-84.3 203.4 186.5)" fill="currentColor"/><ellipse cx="227.1" cy="165.5" rx="11.7" ry="4.68" transform="rotate(-32.6 227.1 165.5)" fill="currentColor"/><ellipse cx="216.0" cy="160.8" rx="11.7" ry="4.68" transform="rotate(-102.6 216.0 160.8)" fill="currentColor"/><ellipse cx="231.9" cy="133.4" rx="11.7" ry="4.68" transform="rotate(-50.9 231.9 133.4)" fill="currentColor"/><ellipse cx="219.8" cy="132.5" rx="11.7" ry="4.68" transform="rotate(-120.9 219.8 132.5)" fill="currentColor"/><ellipse cx="226.3" cy="101.5" rx="11.7" ry="4.68" transform="rotate(-69.1 226.3 101.5)" fill="currentColor"/><ellipse cx="214.6" cy="104.5" rx="11.7" ry="4.68" transform="rotate(-139.1 214.6 104.5)" fill="currentColor"/><ellipse cx="211.0" cy="72.9" rx="11.7" ry="4.68" transform="rotate(-87.4 211.0 72.9)" fill="currentColor"/><ellipse cx="200.9" cy="79.4" rx="11.7" ry="4.68" transform="rotate(-157.4 200.9 79.4)" fill="currentColor"/><ellipse cx="187.6" cy="50.6" rx="11.7" ry="4.68" transform="rotate(-105.7 187.6 50.6)" fill="currentColor"/><ellipse cx="179.9" cy="60.0" rx="11.7" ry="4.68" transform="rotate(-175.7 179.9 60.0)" fill="currentColor"/><ellipse cx="158.3" cy="36.8" rx="11.7" ry="4.68" transform="rotate(-124.0 158.3 36.8)" fill="currentColor"/><ellipse cx="154.0" cy="48.1" rx="11.7" ry="4.68" transform="rotate(-194.0 154.0 48.1)" fill="currentColor"/><polyline points="97.3,224.4 91.4,222.0 85.6,219.2 80.1,216.0 74.7,212.5 69.6,208.6 64.8,204.4 60.3,199.9 56.0,195.1 52.2,190.0 48.6,184.6 45.5,179.0 42.7,173.3 40.3,167.3 38.3,161.2 36.7,155.0 35.6,148.7 34.8,142.4 34.5,136.0 34.7,129.6 35.2,123.2 36.2,116.8 37.6,110.6 39.4,104.4 41.7,98.4 44.3,92.6 47.3,86.9 50.7,81.5 54.5,76.3 58.5,71.4 62.9,66.7 67.7,62.4 72.6,58.4 77.9,54.7 83.4,51.4 89.1,48.4 94.9,45.9 101.0,43.7 107.2,42.0 113.4,40.7" stroke="currentColor" stroke-width="2" fill="none"/><ellipse cx="76.6" cy="206.9" rx="11.7" ry="4.68" transform="rotate(-114.0 76.6 206.9)" fill="currentColor"/><ellipse cx="70.4" cy="217.3" rx="11.7" ry="4.68" transform="rotate(-184.0 70.4 217.3)" fill="currentColor"/><ellipse cx="56.6" cy="186.5" rx="11.7" ry="4.68" transform="rotate(-95.7 56.6 186.5)" fill="currentColor"/><ellipse cx="47.4" cy="194.4" rx="11.7" ry="4.68" transform="rotate(-165.7 47.4 194.4)" fill="currentColor"/><ellipse cx="44.0" cy="160.8" rx="11.7" ry="4.68" transform="rotate(-77.4 44.0 160.8)" fill="currentColor"/><ellipse cx="32.9" cy="165.5" rx="11.7" ry="4.68" transform="rotate(-147.4 32.9 165.5)" fill="currentColor"/><ellipse cx="40.2" cy="132.5" rx="11.7" ry="4.68" transform="rotate(-59.1 40.2 132.5)" fill="currentColor"/><ellipse cx="28.1" cy="133.4" rx="11.7" ry="4.68" transform="rotate(-129.1 28.1 133.4)" fill="currentColor"/><ellipse cx="45.4" cy="104.5" rx="11.7" ry="4.68" transform="rotate(-40.9 45.4 104.5)" fill="currentColor"/><ellipse cx="33.7" cy="101.5" rx="11.7" ry="4.68" transform="rotate(-110.9 33.7 101.5)" fill="currentColor"/><ellipse cx="59.1" cy="79.4" rx="11.7" ry="4.68" transform="rotate(-22.6 59.1 79.4)" fill="currentColor"/><ellipse cx="49.0" cy="72.9" rx="11.7" ry="4.68" transform="rotate(-92.6 49.0 72.9)" fill="currentColor"/><ellipse cx="80.1" cy="60.0" rx="11.7" ry="4.68" transform="rotate(-4.3 80.1 60.0)" fill="currentColor"/><ellipse cx="72.4" cy="50.6" rx="11.7" ry="4.68" transform="rotate(-74.3 72.4 50.6)" fill="currentColor"/><ellipse cx="106.0" cy="48.1" rx="11.7" ry="4.68" transform="rotate(14.0 106.0 48.1)" fill="currentColor"/><ellipse cx="101.7" cy="36.8" rx="11.7" ry="4.68" transform="rotate(-56.0 101.7 36.8)" fill="currentColor"/><polygon points="130.0,14.8 131.8,20.8 137.4,17.8 134.3,23.4 140.4,25.2 134.3,27.0 137.4,32.5 131.8,29.5 130.0,35.6 128.2,29.5 122.6,32.5 125.7,27.0 119.6,25.2 125.7,23.4 122.6,17.8 128.2,20.8" fill="currentColor"/><circle cx="130.0" cy="130.0" r="73.008" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="130.0" cy="130.0" r="65.52" stroke="currentColor" stroke-width="1" fill="none" opacity=".6"/><text x="130.0" y="154.336" text-anchor="middle" font-family="Cinzel, serif" font-size="73" letter-spacing="-9" fill="currentColor">AG</text>`;
+  // Brand mark: the three gold chevrons from the original prototype.
+  const CHEVRON_MARK = '<path d="M8 14 L22 6 L36 14"/><path d="M8 24 L22 16 L36 24"/><path d="M8 34 L22 26 L36 34"/>';
   const sprite = `<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-  <symbol id="logo" viewBox="0 0 260 260">${LAUREL}</symbol>
+  <symbol id="logo" viewBox="0 0 44 44">${CHEVRON_MARK}</symbol>
   <symbol id="i-cart" viewBox="0 0 24 24"><path d="M5 8h14l-1.5 12h-11z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
@@ -55,7 +56,7 @@
     <div class="header-actions">
       <button type="button" class="icon-btn lang-btn" data-action="lang" data-i18n="lang.switch" data-i18n-attr="aria-label:lang.label"></button>
       <button type="button" class="icon-btn" data-action="search" data-i18n-attr="aria-label:search.open">${icon('i-search')}</button>
-      <a class="cart-btn" href="cart.html" data-cart-link>${icon('i-cart')}<span class="cart-btn__label" data-i18n="cart.short"></span><span class="cart-count" data-cart-count>0</span></a>
+      <a class="cart-btn" href="cart.html" data-cart-link>${icon('i-cart')}<span class="cart-btn__label" data-i18n="cart.short"></span><span class="cart-count" data-cart-count>(0)</span></a>
       <button type="button" class="icon-btn menu-btn" data-action="menu" aria-controls="drawer" aria-expanded="false" data-i18n-attr="aria-label:nav.menu">${icon('i-menu')}</button>
     </div>
   </div>
@@ -95,7 +96,6 @@
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <svg class="brand__mark" aria-hidden="true"><use href="#logo"/></svg>
         <strong style="font-family:var(--font-display);font-size:26px" data-i18n="brand.full"></strong>
         <p data-i18n="footer.tagline"></p>
       </div>
@@ -199,7 +199,7 @@
   /* ---------- cart badge + toast ---------- */
   function updateCount() {
     const n = S.cart.count();
-    $$('[data-cart-count]').forEach(el => { el.textContent = new Intl.NumberFormat(I.lang === 'ar' ? 'ar-EG' : 'en').format(n); });
+    $$('[data-cart-count]').forEach(el => { el.textContent = `(${new Intl.NumberFormat(I.lang === 'ar' ? 'ar-EG' : 'en').format(n)})`; });
     $$('[data-cart-link]').forEach(el => el.setAttribute('aria-label', t('cart.label', { n })));
   }
   function toast(msg) {
@@ -226,7 +226,6 @@
   <div class="card__media">
     ${p.badge ? `<span class="badge">${esc(t('badge.' + p.badge))}</span>` : ''}
     ${S.bottleSVG(p)}
-    <span class="card__no">No.${p.no}</span>
   </div>
   <div class="card__body">
     <h3 class="card__name"><a href="product.html#${p.id}" aria-label="${esc(t('card.view', { name: p.name }))}">${esc(p.name)}</a></h3>
@@ -323,7 +322,7 @@
       <div class="pdp__panel ${state.view === 'box' ? 'is-active' : ''}" data-panel="box">${boxSVG()}</div>
       <div class="pdp__panel ${state.view === 'life' ? 'is-active' : ''}" data-panel="life"><p class="ph">${esc(t('pd.g.life'))}</p><p>${esc(t('pd.g.soon'))}</p></div>
       <div class="pdp__panel ${state.view === 'video' ? 'is-active' : ''}" data-panel="video"><p class="ph">${esc(t('pd.g.video'))}</p><p>${esc(t('pd.g.soon'))}</p></div>
-      <span class="pdp__stage-meta">No.${p.no} · 100 ML · EDP</span>
+      <span class="pdp__stage-meta">CLASSIFIED · No.${p.no}</span>
     </div>
     <div class="thumbs" role="tablist" aria-label="${esc(t('pd.gallery'))}">
       ${[['bottle', 'pd.g.bottle', S.bottleSVG(p, { size: 'xs', label: false })], ['box', 'pd.g.box', icon('i-box')], ['life', 'pd.g.life', esc(t('pd.g.life'))], ['video', 'pd.g.video', esc(t('pd.g.video'))]]
@@ -446,7 +445,7 @@
   <path d="M200 70 V100 L120 124 V94 Z" fill="#161A12" stroke="#C9A24A" stroke-width="1.2"/>
   <path d="M46 104 V222 L120 246 V128 Z" fill="url(#bx)" stroke="#8F7433" stroke-width="1"/>
   <path d="M194 104 V222 L120 246 V128 Z" fill="#0F120C" stroke="#8F7433" stroke-width="1"/>
-  <g transform="translate(83 150) skewY(18) scale(.28)" color="#C9A24A"><use href="#logo" width="130" height="130"/></g>
+  <g transform="translate(96 152) skewY(18)" fill="none" stroke="#C9A24A" stroke-width="3" stroke-linejoin="round"><use href="#logo" width="44" height="44"/></g>
 </svg>`;
   }
 

@@ -75,36 +75,32 @@
     return { subtotal, discount, shipping, total, known };
   }
 
-  /* ---------- bottle illustration (own design; based on the shortlisted square smoky bottle + ribbed gold cap) ---------- */
-  let uid = 0;
+  /* ---------- bottle illustration (the original prototype's flat bottle: gold cap, olive glass, gold outline) ----------
+   * size 'lg' | 'xl' → tall display bottle with chevrons, codename and الجنرال (hero, product page)
+   * anything else     → compact catalogue bottle with the number (cards, cart, search, thumbnails)
+   */
+  const CHEVRONS = '<path class="chev" d="M8 14 L22 6 L36 14"/><path class="chev" d="M8 24 L22 16 L36 24"/><path class="chev" d="M8 34 L22 26 L36 34"/>';
   function bottleSVG(p, { size = 'md', label = true } = {}) {
-    const u = `b${++uid}`;
-    const nameSize = p.name.length > 9 ? 8.2 : 10.5;
-    return `<svg class="bottle bottle--${size}" viewBox="0 0 200 320" role="img" aria-label="${p.name} No.${p.no}" focusable="false">
-  <defs>
-    <linearGradient id="${u}g" x1="0" x2="1"><stop offset="0" stop-color="#262823"/><stop offset=".18" stop-color="#55574f"/><stop offset=".5" stop-color="#383a34"/><stop offset=".86" stop-color="#4a4c45"/><stop offset="1" stop-color="#1f211c"/></linearGradient>
-    <linearGradient id="${u}c" x1="0" x2="1"><stop offset="0" stop-color="#8F7433"/><stop offset=".35" stop-color="#E7CB82"/><stop offset=".6" stop-color="#C9A24A"/><stop offset="1" stop-color="#7a6229"/></linearGradient>
-    <linearGradient id="${u}l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9A24A" stop-opacity=".0"/><stop offset=".45" stop-color="#C9A24A" stop-opacity=".16"/><stop offset="1" stop-color="#C9A24A" stop-opacity=".30"/></linearGradient>
-  </defs>
-  <ellipse cx="100" cy="312" rx="78" ry="6" fill="#000" opacity=".35"/>
-  <rect x="66" y="10" width="68" height="10" rx="2" fill="#15171a"/>
-  <rect x="62" y="18" width="76" height="40" rx="3" fill="url(#${u}c)"/>
-  <g stroke="#6d5724" stroke-width="1.2" opacity=".55">${Array.from({ length: 15 }, (_, i) => `<line x1="${67 + i * 4.7}" y1="21" x2="${67 + i * 4.7}" y2="55"/>`).join('')}</g>
-  <rect x="80" y="58" width="40" height="8" fill="#C9A24A"/><rect x="78" y="66" width="44" height="10" rx="2" fill="#121315"/>
-  <path d="M46 84 Q46 76 60 76 H140 Q154 76 154 84 L166 104 Q172 112 172 126 V286 Q172 304 154 304 H46 Q28 304 28 286 V126 Q28 112 34 104 Z" fill="url(#${u}g)"/>
-  <path d="M40 120 V280 Q40 294 54 294 H146 Q160 294 160 280 V120 Q160 108 146 100 H54 Q40 108 40 120 Z" fill="url(#${u}l)"/>
-  <rect x="38" y="112" width="7" height="170" rx="3.5" fill="#fff" opacity=".10"/>
-  <rect x="152" y="118" width="3" height="150" rx="1.5" fill="#fff" opacity=".06"/>
+    const name = p.name, no = p.no;
+    if (size === 'lg' || size === 'xl') {
+      const fs = name.length > 10 ? 20 : 26;
+      return `<svg class="bottle bottle--${size}" viewBox="0 0 244 378" role="img" aria-label="${name} No.${no}" focusable="false">
+  <rect class="bottle__cap" x="74" y="1" width="96" height="56" rx="6" fill="#8F7433" stroke="#C9A24A" stroke-width="2"/>
+  <rect class="bottle__neck" x="100" y="57" width="44" height="18" fill="#C9A24A"/>
+  <rect class="bottle__body" x="2" y="76" width="240" height="300" rx="16" fill="#2A3122" stroke="#C9A24A" stroke-width="2"/>
   ${label ? `<g class="bottle__label">
-    <rect x="58" y="130" width="84" height="132" fill="#0f120c" fill-opacity=".35" stroke="#C9A24A" stroke-width="1"/>
-    <circle cx="100" cy="164" r="17" fill="none" stroke="#C9A24A" stroke-width="1.2"/><circle cx="100" cy="164" r="14.5" fill="none" stroke="#C9A24A" stroke-width=".6" opacity=".6"/>
-    <text x="100" y="170" text-anchor="middle" font-family="Cinzel, serif" font-size="16" letter-spacing="-1.5" fill="#C9A24A">AG</text>
-    <text x="100" y="200" text-anchor="middle" font-family="Cinzel, serif" font-size="6" letter-spacing="2.5" fill="#C9A24A">AL GENERAL</text>
-    <line x1="84" y1="208" x2="116" y2="208" stroke="#C9A24A" stroke-width=".8"/>
-    <text x="100" y="224" text-anchor="middle" font-family="Cinzel, serif" font-size="${nameSize}" letter-spacing="1.6" fill="#E9E1CC">${p.name}</text>
-    <text x="100" y="236" text-anchor="middle" font-family="Cinzel, serif" font-size="6.5" letter-spacing="1.5" fill="#C9A24A">No. ${p.no}</text>
-    <text x="100" y="254" text-anchor="middle" font-family="Cinzel, serif" font-size="4.4" letter-spacing="1.4" fill="#B9B49C">EAU DE PARFUM · 100 ML</text>
+    <g transform="translate(94 150) scale(1.27)" fill="none" stroke="#C9A24A" stroke-width="3" stroke-linejoin="round">${CHEVRONS}</g>
+    <text x="122" y="250" text-anchor="middle" font-family="'Saira Stencil One', sans-serif" font-size="${fs}" letter-spacing="3" fill="#E9E1CC">${name}</text>
+    <rect x="62" y="266" width="120" height="1" fill="#C9A24A"/>
+    <text x="122" y="300" text-anchor="middle" font-family="'Reem Kufi', sans-serif" font-size="18" fill="#C9A24A">الجنرال</text>
   </g>` : ''}
+</svg>`;
+    }
+    return `<svg class="bottle bottle--${size}" viewBox="0 0 134 206" role="img" aria-label="${name} No.${no}" focusable="false">
+  <rect class="bottle__cap" x="39" y="1" width="56" height="32" rx="4" fill="#8F7433" stroke="#C9A24A" stroke-width="2"/>
+  <rect class="bottle__neck" x="54" y="33" width="26" height="10" fill="#C9A24A"/>
+  <rect class="bottle__body" x="2" y="44" width="130" height="160" rx="10" fill="#161A12" stroke="#C9A24A" stroke-width="2"/>
+  ${label ? `<text x="67" y="132" text-anchor="middle" font-family="'Saira Stencil One', sans-serif" font-size="22" fill="#C9A24A">${no}</text>` : ''}
 </svg>`;
   }
 

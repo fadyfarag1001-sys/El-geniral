@@ -5,7 +5,7 @@ A static storefront: plain HTML, CSS and JS with no build step. Arabic RTL is th
 | Page | What it does |
 |---|---|
 | `index.html` | Hero, Standard vs General Elite, collection with filters (All / Men / Women / Unisex), craft, the house |
-| `product.html?id=commander` | Product page: gallery, strength + size + quantity, add to bag, buy now, notes, related scents, sticky mobile buy bar |
+| `product.html#commander` | Product page: gallery, strength + size + quantity, add to bag, buy now, notes, related scents, sticky mobile buy bar |
 | `cart.html` | Bag saved in the browser. Includes quantity, remove, tester upsell, promo field, cash-on-delivery checkout form with validation |
 | `help.html` | Shipping, returns and contact (footer links point here) |
 
@@ -16,7 +16,7 @@ A static storefront: plain HTML, CSS and JS with no build step. Arabic RTL is th
 - **Text (Arabic + English):** `assets/js/i18n.js`. After changing Arabic text, run `npm run prerender` so the HTML has the text before JS loads.
 - **Colours / fonts:** `assets/css/styles.css` (`:root`). These follow `design-system/tokens.css`.
 - **Animation:** `assets/js/motion.js`.
-- **Logo:** the AG laurel (recommended option) is embedded in `assets/js/app.js` (`LAUREL`) and `index.html` (the house section). To switch to another option, replace those with `design-system/logo/ag-stars.svg` or `ag-eight-point-star.svg`.
+- **Look:** the original prototype design (chevron insignia, stencil codenames, military-luxury copy), as chosen by the owner. The logo is `CHEVRON_MARK` in `assets/js/app.js`; the bottle drawings are `bottleSVG` in `assets/js/store.js`.
 
 ## Run, check, test
 
